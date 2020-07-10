@@ -7,9 +7,7 @@ use std::path::Path;
 use nalgebra::{Matrix, Point3, U1, U3, Vector3};
 use nalgebra::base::allocator::Allocator;
 use nalgebra::base::default_allocator::DefaultAllocator;
-use ron::de;
 use ron::ser::{PrettyConfig, to_string_pretty};
-use ron::ser;
 use serde::{Deserialize, Serialize, Serializer};
 
 use custom_error::custom_error;
@@ -25,13 +23,12 @@ pub struct SceneData {
 }
 
 custom_error!{ pub SceneParserError
-	RonSerializeError {source: ser::Error} = "Encounter error while serializing scene data to ron",
-	RonDeserializeError {source: de::Error} = "Encounter error while deserialize ron to scene data",
+	RonSerdeError {source: ron::error::Error} = "Encounter error while (de)serializing scene data",
 	IOError {source: io::Error} = "Encounter error while opening file"
 }
 
 pub fn load_scene_data(path: impl AsRef<Path>) -> Result<SceneData, SceneParserError> {
-	let scene_data = de::from_reader(fs::File::open(path)?)?;
+	let scene_data = ron::de::from_reader(fs::File::open(path)?)?;
 	Ok(scene_data)
 }
 
@@ -42,12 +39,12 @@ pub fn save_scene_data(path: impl AsRef<Path>, scene: &SceneData) -> Result<(), 
 }
 
 pub mod serde_interface {
-    use nalgebra::{Point3, Rotation3, Vector3};
-    use serde::{Deserialize, Serialize};
+	use nalgebra::{Point3, Rotation3, Vector3};
+	use serde::{Deserialize, Serialize};
 
-    use super::super::camera::Camera;
+	use super::super::camera::Camera;
 
-    #[derive(Serialize, Deserialize)]
+	#[derive(Serialize, Deserialize)]
 	pub struct CameraSerdeInterface {
 		position: Point3<f32>,
 		rotation: (f32, f32, f32),
