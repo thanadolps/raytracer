@@ -1,11 +1,11 @@
 use std::f32::consts::FRAC_PI_4;
 use std::time::Instant;
 
-use nalgebra::{Point3, Rotation3, Unit, UnitQuaternion, Vector2, Vector3};
+use nalgebra::{Point3, Rotation3, Unit, UnitQuaternion, Vector3};
 
 use rtracer::Color3;
-use rtracer::geometric::{Disc, InfinitePlane, Sphere};
-use rtracer::light::{AreaLight, DirectionalLight, PointLight};
+use rtracer::geometric::{InfinitePlane, Sphere};
+use rtracer::light::{AreaLight};
 use rtracer::renderer::{render, RenderImage};
 use rtracer::SceneObject;
 
@@ -23,7 +23,7 @@ fn main() {
 
 fn test() {
 
-	use std::any::type_name;
+
 
 	let q2: UnitQuaternion<f64> =
 		UnitQuaternion::from_axis_angle(&Vector3::x_axis(), std::f64::consts::PI/4.0);
@@ -111,7 +111,7 @@ fn setup() -> SceneData {
 
 fn test_render(scene_data: &rtracer::SceneData) {
 	// render
-	const IMAGE_SIZE: u32 = 250;
+	const IMAGE_SIZE: u32 = 500;
 	const VIEWPORT_SIZE: u32 = 2;
 	const UNIT_PER_PIXEL: f32 = VIEWPORT_SIZE as f32 / IMAGE_SIZE as f32;
 

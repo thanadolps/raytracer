@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::{material, Materials};
+use super::{Materials};
 use super::shape::geometric::Shapes;
 
 #[derive(Serialize, Deserialize)]

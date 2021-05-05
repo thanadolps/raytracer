@@ -1,7 +1,7 @@
-use std::iter::{FlatMap, repeat, Scan};
-use std::ops::{Range, RangeInclusive};
 
-use nalgebra::{Unit, UnitQuaternion, Vector3};
+use std::ops::{RangeInclusive};
+
+use nalgebra::{Unit, Vector3};
 use num_traits::real::Real;
 
 use assert_approx_eq::assert_approx_eq;
@@ -34,7 +34,6 @@ pub fn map_float<F: Real>(x: F, src: RangeInclusive<F>, dest: RangeInclusive<F>)
     *dest.start() + (dest_size/src_size) * (x - *src.start())
 }
 
-type UV3 = Unit<Vector3<f32>>;
 /*
 type UnitSphereInnerIterator<
     F1: FnMut(&mut UV3, usize) -> Option<UV3>,
@@ -122,9 +121,9 @@ mod tests {
 
     #[test]
     fn map_float_test() {
-        assert_eq!(map_float(0.0, (-1.0..=1.0), (0.0..=1.0)), 0.5);
-        assert_eq!(map_float(1.0, (-1.0..=1.0), (0.0..=1.0)), 1.0);
-        assert_eq!(map_float(-1.0, (-1.0..=1.0), (0.0..=1.0)), 0.0);
-        assert_eq!(map_float(0.0, (0.0..=1.0), (-1.0..=1.0)), -1.0);
+        assert_eq!(map_float(0.0, -1.0..=1.0, 0.0..=1.0), 0.5);
+        assert_eq!(map_float(1.0, -1.0..=1.0, 0.0..=1.0), 1.0);
+        assert_eq!(map_float(-1.0, -1.0..=1.0, 0.0..=1.0), 0.0);
+        assert_eq!(map_float(0.0, 0.0..=1.0, -1.0..=1.0), -1.0);
     }
 }

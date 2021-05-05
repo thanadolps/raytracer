@@ -1,5 +1,5 @@
 use itertools::Itertools;
-use nalgebra::{Point3, Similarity3, Translation3, Unit, UnitQuaternion, Vector2, Vector3};
+use nalgebra::{Point3, Similarity3, Translation3, Unit, UnitQuaternion, Vector3};
 use rand::distributions::{Distribution, Uniform};
 use rand::thread_rng;
 use serde::{Deserialize, Serialize};

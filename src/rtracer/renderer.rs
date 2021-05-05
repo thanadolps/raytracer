@@ -1,8 +1,8 @@
 use std::cmp::Ordering::Equal;
 
 use image::ImageBuffer;
-use image::imageops::{BiLevel, blur, dither};
-use image::math::nq::NeuQuant;
+
+
 use image::Rgb;
 use itertools::Itertools;
 use itertools::MinMaxResult::*;
@@ -15,7 +15,7 @@ use crate::rtracer::{material::Material, RayCastInfo, SceneObject};
 use super::Camera;
 use super::Color3;
 use super::HitInfo;
-use super::light::Light;
+
 use super::scene::Scene;
 use super::shape::Shape;
 
@@ -112,7 +112,7 @@ pub fn raycast_return_ref(scene: &Scene, origin: Point3<f32>, dir: Unit<Vector3<
 	scene
 		.iter_obj()
 		.filter_map(|x| x.shape.intersect(origin, dir).map(|k| (k, x)))
-		.filter(|(x, a): &(HitInfo, _)| x.dist > 1e-6)
+		.filter(|(x, _a): &(HitInfo, _)| x.dist > 1e-6)
 		.min_by(|(a, _), (b, _)|
 			a.dist.partial_cmp(&b.dist).unwrap_or(Equal)
 		)

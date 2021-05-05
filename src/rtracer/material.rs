@@ -1,9 +1,8 @@
-use itertools::Itertools;
-use nalgebra::{Reflection, Unit, UnitQuaternion, Vector3};
-use noise::NoiseFn;
-use rand::{Rng, thread_rng};
-use rand::prelude::ThreadRng;
-use rand_distr::{Distribution, UnitBall};
+
+use nalgebra::{Unit, Vector3, UnitQuaternion};
+use rand::{Rng};
+
+use rand_distr::{Distribution};
 use serde::{Deserialize, Serialize};
 
 use enum_dispatch::enum_dispatch;
@@ -44,7 +43,7 @@ impl Diffuse {
 
 impl Material for Diffuse {
     fn compute_light(&self, scene: &Scene, hit_info: &HitInfo,
-                     hit_object: &SceneObject, _: RayCastInfo, rng: &mut impl Rng)
+                     _hit_object: &SceneObject, _: RayCastInfo, _rng: &mut impl Rng)
         -> Color3 {
         scene.iter_light()
             .map(|x| x.direct_light_at(hit_info.intersection, hit_info.normal, scene))
@@ -103,10 +102,9 @@ impl Reflective {
     }*/
 
     fn _compute_light_unbiased(&self, scene: &Scene, hit_info: &HitInfo,
-                               hit_object: &SceneObject, raycast_info: RayCastInfo,
+                               _hit_object: &SceneObject, raycast_info: RayCastInfo,
                                rng: &mut impl Rng) -> Color3
     {
-        use crate::rtracer::renderer::raycast_compute_light;
         use rand_distr::UnitBall;
 
         (0..self.iteration)
@@ -135,14 +133,11 @@ impl Reflective {
     // need a way to generate finite ray in unit sphere uniformly (UnitBall but deterministic)
     // reading implementation of UnitBall might be good
     fn _compute_light_finite(&self, scene: &Scene, hit_info: &HitInfo,
-                               hit_object: &SceneObject, raycase_info: RayCastInfo,
+                               _hit_object: &SceneObject, raycase_info: RayCastInfo,
                              rng: &mut impl Rng) -> Color3
     {
-        use crate::rtracer::renderer::raycast_compute_light;
-        use rand_distr::UnitBall;
 
         // iterator that yield RES^2 uniform unit vector on sphere surface
-        use nalgebra::UnitQuaternion;
 
         let qx: UnitQuaternion<f32> =
             UnitQuaternion::from_axis_angle(&Vector3::x_axis(), 2.0 * std::f32::consts::PI/self.iteration as f32);
@@ -218,9 +213,9 @@ impl PerfectReflective {
 
 impl Material for PerfectReflective {
     fn compute_light(&self, scene: &Scene, hit_info: &HitInfo,
-                     hit_object: &SceneObject, raycast_info: RayCastInfo, rng: &mut impl Rng)
+                     _hit_object: &SceneObject, raycast_info: RayCastInfo, rng: &mut impl Rng)
         -> Color3 {
-        use helper::calculate_reflect_ray;
+
 
         if raycast_info.ray_depth() > REFLECTION_DEPTH_LIMIT {
             return scene.get_skylight();

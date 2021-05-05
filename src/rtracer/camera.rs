@@ -2,7 +2,7 @@ use nalgebra::{Point3, Rotation3, Unit, Vector3};
 use serde::{Deserialize, Serialize};
 use serde;
 
-use crate::rtracer::serde_interface::CameraSerdeInterface;
+
 
 #[derive(Serialize, Deserialize, Clone)]
 // #[serde(into = "CameraSerdeInterface")]

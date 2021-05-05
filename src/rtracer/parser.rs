@@ -1,18 +1,18 @@
-use std::collections::HashMap;
+
 use std::fs;
 use std::io;
 use std::io::Write;
 use std::path::Path;
 
-use nalgebra::{Matrix, Point3, U1, U3, Vector3};
-use nalgebra::base::allocator::Allocator;
-use nalgebra::base::default_allocator::DefaultAllocator;
+
+
+
 use ron::ser::{PrettyConfig, to_string_pretty};
-use serde::{Deserialize, Serialize, Serializer};
+use serde::{Deserialize, Serialize};
 
 use custom_error::custom_error;
 
-use crate::rtracer::{Color3, light, SceneObject};
+
 
 use super::{Camera, Scene};
 
@@ -39,7 +39,7 @@ pub fn save_scene_data(path: impl AsRef<Path>, scene: &SceneData) -> Result<(), 
 }
 
 pub mod serde_interface {
-	use nalgebra::{Point3, Rotation3, Vector3};
+	use nalgebra::{Point3, Rotation3};
 	use serde::{Deserialize, Serialize};
 
 	use super::super::camera::Camera;
