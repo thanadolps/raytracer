@@ -1,0 +1,46 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'test_project'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=test_project",
+                    "--package=test_project"
+                ],
+                "filter": {
+                    "name": "test_project",
+                    "kind": "bin"
+                }
+            },
+            "args": ["box_data.ron"],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'test_project'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=test_project",
+                    "--package=test_project"
+                ],
+                "filter": {
+                    "name": "test_project",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

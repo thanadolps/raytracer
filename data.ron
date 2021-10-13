@@ -1,32 +1,55 @@
 (
     scene: (
-        objects: [
+        objects: [/*
             (
                 material: PerfectReflective((
                     color: [
-                        0.5,
-                        0.5,
+                        0.31,
+                        0.86,
+                        0.39,
+                    ],
+                    roughness: 0.1,
+                    iteration: 10,
+                )),
+                shape: Sphere((
+                    pos: [
+                        2,
+                        2,
                         1,
                     ],
+                    radius: 1.0,
+                )),
+            ),
+            (
+                material: Reflective((
+                    color: [
+                        0.7,
+                        0.7,
+                        1,
+                    ],
+                    roughness: 0.05,
+                    iteration: 10,
                 )),
                 shape: Sphere((
                     pos: [
                         3,
-                        2,
+                        -2,
                         0,
                     ],
-                    radius: 0.5,
+                    radius: 1,
                 )),
-            ),
+            ),*/
             (
-                material: Diffuse((
+                material: PBRDiffuse((
                     color: [
-                        0.5,
-                        0.5,
-                        1,
+                        0.29,
+                        0.68,
+                        0.31,
                     ],
-                )),
-                shape: InfinitePlane((
+                    albedo: 0.2,
+                    iteration: 20,
+                )),/*
+                shape: Disc((
                     pos: [
                         1,
                         1,
@@ -37,27 +60,138 @@
                         0,
                         1,
                     ],
+                    radius: 4
+                )),*/
+                shape: InfinitePlane((
+                    pos: [
+                        1,
+                        1,
+                        -1,
+                    ],
+                    norm: [
+                        0,
+                        0,
+                        1,
+                    ]
+                ))
+            ),
+            (
+                material: PBRDiffuse((
+                    color: [
+                        0.1,
+                        0.1,
+                        1.0,
+                    ],
+                    albedo: 1.0,
+                    iteration: 20,
+                )),/*
+                NormalDebug((
+                    scaler: 2.0,
+                )),*/
+                shape: Sphere((
+                    pos: [
+                        2,
+                        0.25,
+                        0,
+                    ],
+                    radius: 1.0,
                 )),
             ),
             (
-                material: Diffuse((
+                material: PBRDiffuse((
                     color: [
-                        1,
+                        1.0,
                         0.5,
                         0.5,
                     ],
+                    albedo: 0.99,
+                    iteration: 50,
                 )),
                 shape: Sphere((
                     pos: [
                         3,
-                        0,
+                        -1.75,
+                        -0.5,
+                    ],
+                    radius: 0.5,
+                )),
+            ),
+            (/*
+                material: PerfectReflective((
+                    color: [
+                        1.0,
+                        1.0,
+                        1.0,
+                    ],
+                )),*//*
+                shape: Sphere((
+                    pos: [
+                        3,
+                        -1.75,
+                        1.0,
+                    ],
+                    radius: 1.0,
+                )),*/
+                material: PBRDiffuse((
+                    color: [
+                        1.0,
+                        1.0,
+                        1.0,
+                    ],
+                    albedo: 0.5,
+                    iteration: 50,
+                )),
+                shape: Plane((
+                    pos: [3,-1,1.0],
+                    norm: [-0.707,0,-0.707],
+                    span: [-0.707,0, 0.707],
+                    scale: Some((1.0, 2.0))
+                ))
+            ),
+            /*
+            (
+                material: NormalDebug((
+                    scaler: 1.0
+                )),
+                shape: Sphere((
+                    pos: [
+                        3,
+                        -2.2,
                         0,
                     ],
                     radius: 1,
                 )),
+            ),*//*
+            (
+                material: NormalDebug((
+                    scaler: 0.1
+                )),
+                shape: Sphere((
+                    pos: [
+                        2,
+                        1.5,
+                        -0.5,
+                    ],
+                    radius: 0.5,
+                )),
             ),
+            (
+                material: Reflective((
+                    color: [0.5, 0.5, 1],
+                    roughness: 0.5,
+                    iteration: 10
+                )),
+                shape: Sphere((
+                    pos: [
+                        2,
+                        -1.5,
+                        -0.25,
+                    ],
+                    radius: 0.75,
+                )),
+            ),*/
         ],
-        lights: [
+        lights: [/*
             AreaLight((
                 transformer: (
                     isometry: (
@@ -73,20 +207,38 @@
                             1,
                         ],
                     ),
-                    scaling: 0.5,
+                    scaling: 1,
                 ),
                 light: [
-                    1,
-                    1,
-                    1,
+                    0.99,
+                    0.98,
+                    0.82,
                 ],
-            )),
+                light: [
+                    1.98,
+                    1.96,
+                    1.64
+                ]
+            )),*/
+            DirectionalLight((
+                dir: [
+                    0.57735,-0.57735,-0.57735
+                ],
+                light: [
+                    0.5,
+                    0.33,
+                    0.26,
+                ],
+            ))
         ],
         skylight: [
-            0.05,
+            /**0.05,
             0.07,
-            0.1,
-        ],
+            0.1,*/
+            //0.25,0.719, 0.94
+            // 0.20,0.32,0.36 // preety good
+            0.10,0.16,0.18
+        ]
     ),
     camera: (
         pos: [
@@ -110,4 +262,9 @@
             1,
         ],
     ),
+    config: (
+        image_size: 1000,
+        viewport_size: 2,
+        output_file: "render3.png"
+    )
 )

@@ -1,0 +1,196 @@
+(
+    scene: (
+        objects: [
+            // Ground
+            (
+                material: PBRDiffuse((
+                    color: [
+                        1.0,
+                        1.0,
+                        1.0,
+                    ],
+                    albedo: 0.5,
+                    iteration: 10,
+                )),
+                shape: Plane((
+                    pos: [0.5,0.0,-0.5],
+                    norm: [0,0,1],
+                    span: [0,0.5,0],
+                    scale: Some((1.0, 1.0))
+                ))
+            ),
+            // Left red wall
+            (
+                material: PBRDiffuse((
+                    color: [
+                        1.0,
+                        0.0,
+                        0.0,
+                    ],
+                    albedo: 0.9,
+                    iteration: 10,
+                )),
+                shape: Plane((
+                    pos: [0.75,-0.5,0],
+                    norm: [0,1,0],
+                    span: [0,0,0.5],
+                    scale: Some((1.0, 0.5))
+                ))
+            ),
+            // Right green wall
+            (
+                material: PBRDiffuse((
+                    color: [
+                        0.0,
+                        1.0,
+                        0.0,
+                    ],
+                    albedo: 0.9,
+                    iteration: 10,
+                )),
+                shape: Plane((
+                    pos: [0.75,0.5,0],
+                    norm: [0,-1,0],
+                    span: [0,0,0.5],
+                    scale: Some((1.0, 0.5))
+                ))
+            ),
+            // Back wall
+            (
+                material: PBRDiffuse((
+                    color: [
+                        1.0,
+                        1.0,
+                        1.0,
+                    ],
+                    albedo: 0.5,
+                    iteration: 10,
+                )),
+                shape: Plane((
+                    pos: [1.0,0.0,0],
+                    norm: [-1,0,0],
+                    span: [0,0,0.5],
+                    scale: Some((1.0, 1.0))
+                ))
+            ),
+            // Roof Light
+            /*(
+                material: Emission((
+                    light: [
+                        6.0,
+                        6.0,
+                        6.0,
+                    ],
+                )),
+                shape: Plane((
+                    pos: [0.6,0.0,0.49],
+                    norm: [0,0,-1.0],
+                    span: [0,0.5,0],
+                    scale: Some((0.25, 0.25))
+                ))
+            ),*/
+            // Roof
+            (
+                material: PBRDiffuse((
+                    color: [
+                        0.5,
+                        0.5,
+                        0.5,
+                    ],
+                    albedo: 0.1,
+                    iteration: 5,
+                )),
+                shape: Plane((
+                    pos: [0.5,0.0,0.5],
+                    norm: [0,0,-1.0],
+                    span: [0,0.5,0],
+                    scale: Some((1.0, 1.0))
+                ))
+            ),
+            // center sphere
+            (
+                material: PBRDiffuse((
+                    color: [
+                        1.0,
+                        1.0,
+                        1.0,
+                    ],
+                    albedo: 0.7,
+                    iteration: 10,
+                )),
+                shape: Sphere((
+                    pos: [0.7,0,-0.25],
+                    radius: 0.25
+                ))
+            )
+        ],
+        lights: [
+            AreaLight((
+                plane: (
+                    pos: [0.6,0.0,0.49],
+                    norm: [0,0,-1.0],
+                    span: [0,0.5,0],
+                    cospan: Some([0.5,0,0]),
+                    scale: Some((0.25, 0.25))
+                ),
+                light: [
+                    0.99,
+                    0.98,
+                    0.82,
+                ]
+            )),/*
+            DirectionalLight((
+                dir: [
+                    0.57735,-0.57735,-0.57735
+                ],
+                light: [
+                    0.5,
+                    0.33,
+                    0.26,
+                ],
+            )),*//*
+            PointLight((
+                pos: [0.5,0,0.49],
+                light: [1,1,1],
+            ))*/
+        ],
+        skylight: [
+            /**0.05,
+            0.07,
+            0.1,*/
+            //0.25,0.719, 0.94
+            // 0.20,0.32,0.36 // preety good
+            0.10,0.16,0.18
+        ]
+    ),
+    camera: (
+        pos: [
+            0,
+            0,
+            0,
+        ],
+        forward: [
+            1,
+            0,
+            0,
+        ],
+        right: [
+            0,
+            1,
+            0,
+        ],
+        up: [
+            0,
+            0,
+            1,
+        ],
+    ),
+    config: (
+        image_size: 1500,
+        viewport_size: 2,
+        output_file: "box_bench3.png",
+        color_map: (
+            v_max: Some(1.0)
+        )
+    )
+)

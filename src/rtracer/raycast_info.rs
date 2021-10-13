@@ -1,11 +1,11 @@
 #[derive(Copy, Clone)]
 pub struct RayCastInfo {
-    ray_number: usize
+    ray_number: usize,
 }
 
 impl RayCastInfo {
     pub fn new() -> Self {
-        RayCastInfo {ray_number: 0}
+        RayCastInfo { ray_number: 0 }
     }
 
     pub fn increment_ray_number(&mut self) {

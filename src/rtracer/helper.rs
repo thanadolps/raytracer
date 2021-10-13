@@ -1,37 +1,37 @@
-
-use std::ops::{RangeInclusive};
+use std::ops::RangeInclusive;
 
 use nalgebra::{Unit, Vector3};
 use num_traits::real::Real;
 
 use assert_approx_eq::assert_approx_eq;
 
-pub fn calculate_reflect_ray(incoming_ray: &Unit<Vector3<f32>>, normal: &Unit<Vector3<f32>>)
-    -> Unit<Vector3<f32>> {
+pub fn calculate_reflect_ray(
+    incoming_ray: &Unit<Vector3<f32>>,
+    normal: &Unit<Vector3<f32>>,
+) -> Unit<Vector3<f32>> {
     // http://paulbourke.net/geometry/reflected/
     let ri = incoming_ray.into_inner();
     let ray = ri - 2.0 * ri.dot(normal.as_ref()) * normal.into_inner();
     debug_normalize(ray)
 }
 
+#[cfg(debug_assertions)]
 pub fn debug_normalize(v: Vector3<f32>) -> Unit<Vector3<f32>> {
-    if cfg!(debug_assertions) {
-        let (unit_vec, magnitude) = Unit::new_and_get(v);
-        assert_approx_eq!(magnitude, 1.0, 1e-6);
-        unit_vec
-    }
-    else {
-        // dbg!(v);
-        Unit::new_unchecked(v)
-    }
+    let (unit_vec, magnitude) = Unit::new_and_get(v);
+    assert_approx_eq!(magnitude, 1.0, 1e-3);
+    unit_vec
+}
+
+#[cfg(not(debug_assertions))]
+pub fn debug_normalize(v: Vector3<f32>) -> Unit<Vector3<f32>> {
+    Unit::new_unchecked(v)
 }
 
 pub fn map_float<F: Real>(x: F, src: RangeInclusive<F>, dest: RangeInclusive<F>) -> F {
-
     let dest_size = *dest.start() - *dest.end();
     let src_size = *src.start() - *src.end();
 
-    *dest.start() + (dest_size/src_size) * (x - *src.start())
+    *dest.start() + (dest_size / src_size) * (x - *src.start())
 }
 
 /*
@@ -113,7 +113,6 @@ where   F1: FnMut(&mut UV3, usize) -> Option<UV3>,
 
     UnitSphereSurfaceIterator {qx, qz, inner_iterator: iterator}
 }*/
-
 
 #[cfg(test)]
 mod tests {
